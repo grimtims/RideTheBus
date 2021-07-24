@@ -25,6 +25,7 @@ public interface RTBConstants {
 	public final static String GREEN_POKER_BACKGROUND_FILEPATH = "/poker_green_background.png";
 	public final static String GREEN_POKER_BACKGROUND_DARK_FILEPATH = "/poker_green_background_dark.png";
 	public final static String GREEN_POKER_BACKGROUND_SAT_FILEPATH = "/poker_green_background_sat.png";
+	public final static String GREEN_POKER_BACKGROUND_SAT2_FILEPATH = "/poker_green_background_sat2.png";
 	
 	public static enum STOP {
 		RED_OR_BLACK,
@@ -67,6 +68,7 @@ public interface RTBConstants {
 	
 	public static final String ABOUT_TEXT = 
 			"Welcome To Ride The Bus!\n\n"+
+			"By Cheese_n_Rice\n\n"+
 			"Version "+VERSION;
 	
 }

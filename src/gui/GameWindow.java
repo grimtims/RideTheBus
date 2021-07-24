@@ -281,7 +281,7 @@ public class GameWindow {
 		
 		// Set Background Image
 		try {
-			lblBackground = new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(RTBConstants.GREEN_POKER_BACKGROUND_DARK_FILEPATH))));
+			lblBackground = new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(RTBConstants.GREEN_POKER_BACKGROUND_SAT2_FILEPATH))));
 			frame.setContentPane(lblBackground);
 		} catch (IOException e) {
 			e.printStackTrace();
