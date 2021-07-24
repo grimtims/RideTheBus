@@ -40,6 +40,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -157,7 +158,6 @@ public class GameWindow {
 	
 	public void initGame() {
 		this.rtb = new RideTheBus(num_of_decks);
-		showPercentages(false);
 	}
 	
 	public void initImages() {
@@ -279,11 +279,11 @@ public class GameWindow {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(46, 139, 87));
 		
+		// Set Background Image
 		try {
 			lblBackground = new JLabel(new ImageIcon(ImageIO.read(this.getClass().getResource(RTBConstants.GREEN_POKER_BACKGROUND_DARK_FILEPATH))));
-//			frame.setContentPane(lblBackground);
+			frame.setContentPane(lblBackground);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -413,6 +413,7 @@ public class GameWindow {
 		frame.getContentPane().add(panelResult, "cell 0 2,grow");
 		
 		lblResult = new JLabel("");
+		lblResult.setVisible(false);
 		lblResult.setBackground(new Color(46, 139, 87));
 		lblResult.setForeground(new Color(255, 255, 255));
 		lblResult.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -543,8 +544,6 @@ public class GameWindow {
 				
 				initGame();
 				
-				rtb.setStop(STOP.RED_OR_BLACK);
-				
 				lblPrompt.setText(rtb.getPrompt());
 				
 				resetCardImages();
@@ -554,6 +553,8 @@ public class GameWindow {
 				removeAllButtonsFromPanel();
 				
 				addButtonsToPanel(listFirstButtons);
+				
+				updatePercentages();
 				
 			}
 		});
@@ -565,8 +566,6 @@ public class GameWindow {
 				
 				initGame();
 				
-				rtb.setStop(STOP.RED_OR_BLACK);
-				
 				lblPrompt.setText(rtb.getPrompt());
 				
 				resetCardImages();
@@ -576,6 +575,8 @@ public class GameWindow {
 				removeAllButtonsFromPanel();
 				
 				addButtonsToPanel(listFirstButtons);
+				
+				updatePercentages();
 				
 			}
 			
@@ -957,32 +958,48 @@ public class GameWindow {
 		rdbtnShowOdds.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				showPercentages(rdbtnShowOdds.isSelected());								
+				checkShowPercentages();						
 			}
 		});
 		
+		mntmAbout.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {				
+				JOptionPane.showMessageDialog(frame,
+					    RTBConstants.ABOUT_TEXT,
+					    "About",
+					    JOptionPane.NO_OPTION);
+			}
+		});	
 		
 		
 		
 	}
 	
 	private void updatePercentages() {
-		String strPercentages = "-";
-		double[] arrPercentages = rtb.getPercentages();
-		String strPercentageNames = "<html>- red  - blk  - low  - hi   - ps2  - in   - out  - ps3  - spd  - clb  - hrt  - dmd  - <br>-";
+		
+		double[] per = rtb.getPercentages();
 		
 		DecimalFormat formatter = new DecimalFormat("#0.0");
 		
-		for ( int i = 0; i < arrPercentages.length; i++) {
-			strPercentageNames += " "+formatter.format(arrPercentages[i]*100)+" -";
-		}
-		strPercentageNames += "</html>";
+		String formattedStopOnePercentages = 	"Red: "+formatter.format(per[0]*100)+"    Black: "+formatter.format(per[1]*100);
+		String formattedStopTwoPercentages =    "Higher: "+formatter.format(per[2]*100)+"    Lower: "+formatter.format(per[3]*100)+"    Post: "+formatter.format(per[4]*100);
+		String formattedStopThreePercentages =	"Inside: "+formatter.format(per[5]*100)+"    Outside: "+formatter.format(per[6]*100)+"    Post: "+formatter.format(per[7]*100);
+		String formattedStopFourPercentages = 	"Spade: "+formatter.format(per[8]*100)+"    Club: "+formatter.format(per[9]*100)+"    High: "+formatter.format(per[10]*100)+"    Diamond: "+formatter.format(per[11]*100);
 		
-		lblResult.setText(strPercentageNames);
+		if 		(rtb.getStop() == STOP.RED_OR_BLACK)
+			lblResult.setText(formattedStopOnePercentages);
+		else if (rtb.getStop() == STOP.HIGHER_LOWER)
+			lblResult.setText(formattedStopTwoPercentages);
+		else if (rtb.getStop() == STOP.IN_OUT_POST)
+			lblResult.setText(formattedStopThreePercentages);
+		else if (rtb.getStop() == STOP.GUESS_SUIT)
+			lblResult.setText(formattedStopFourPercentages);
 	}
 	
-	private void showPercentages(boolean show) {
-		lblResult.setVisible(show);
+	private void checkShowPercentages() {
+		lblResult.setVisible(rdbtnShowOdds.isSelected());
 	}
 	
 	private void checkResetEmptyDeck() {

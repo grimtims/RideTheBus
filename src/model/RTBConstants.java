@@ -2,6 +2,8 @@ package model;
 
 public interface RTBConstants {
 	
+	public final static String VERSION			= "1.0";
+	
 	public final static String WON_AT_STOP   	= "Nice!";
 	public final static String WON_GAME			= "You Win!";
 	public final static String LOST_AT_STOP		= "lololol drink, start again!";
@@ -22,6 +24,7 @@ public interface RTBConstants {
 	
 	public final static String GREEN_POKER_BACKGROUND_FILEPATH = "/poker_green_background.png";
 	public final static String GREEN_POKER_BACKGROUND_DARK_FILEPATH = "/poker_green_background_dark.png";
+	public final static String GREEN_POKER_BACKGROUND_SAT_FILEPATH = "/poker_green_background_sat.png";
 	
 	public static enum STOP {
 		RED_OR_BLACK,
@@ -61,5 +64,9 @@ public interface RTBConstants {
 					"Sheeeesh!",
 					"Good Job!"
 			};
+	
+	public static final String ABOUT_TEXT = 
+			"Welcome To Ride The Bus!\n\n"+
+			"Version "+VERSION;
 	
 }

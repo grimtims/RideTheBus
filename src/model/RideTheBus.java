@@ -215,8 +215,8 @@ public class RideTheBus {
 		
 		double[] percentages = {(red/total),
 								(black/total),
-								(lower/total),
 								(higher/total),
+								(lower/total),
 								(post2/total),
 								(inside/total),
 								(outside/total),
