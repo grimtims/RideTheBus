@@ -49,6 +49,9 @@ import javax.swing.Box;
 import javax.swing.border.BevelBorder;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
 
 
 public class GameWindow {
@@ -239,6 +242,7 @@ public class GameWindow {
 	}
 	
 	boolean isCardSheet = false;
+	private JPanel panel_title;
 	private BufferedImage getCardImage(Card card) {
 		
 		if (isCardSheet) {
@@ -309,10 +313,18 @@ public class GameWindow {
 		label_left_header_image = new JLabel("");
 		panelHeader.add(label_left_header_image);
 		
+		panel_title = new JPanel();
+		panel_title.setOpaque(false);
+		FlowLayout fl_panel_title = (FlowLayout) panel_title.getLayout();
+		fl_panel_title.setVgap(10);
+		fl_panel_title.setHgap(10);
+		panelHeader.add(panel_title);
+		
 		lblNewLabel = new JLabel("Ride The Bus!");
+		panel_title.add(lblNewLabel);
+		lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblNewLabel.setBackground(new Color(102, 204, 153));
 		lblNewLabel.setForeground(new Color(255, 255, 255));
-		panelHeader.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Franklin Gothic Demi Cond", Font.BOLD, 40));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
@@ -986,7 +998,7 @@ public class GameWindow {
 		String formattedStopOnePercentages = 	"Red: "+formatter.format(per[0]*100)+"    Black: "+formatter.format(per[1]*100);
 		String formattedStopTwoPercentages =    "Higher: "+formatter.format(per[2]*100)+"    Lower: "+formatter.format(per[3]*100)+"    Post: "+formatter.format(per[4]*100);
 		String formattedStopThreePercentages =	"Inside: "+formatter.format(per[5]*100)+"    Outside: "+formatter.format(per[6]*100)+"    Post: "+formatter.format(per[7]*100);
-		String formattedStopFourPercentages = 	"Spade: "+formatter.format(per[8]*100)+"    Club: "+formatter.format(per[9]*100)+"    High: "+formatter.format(per[10]*100)+"    Diamond: "+formatter.format(per[11]*100);
+		String formattedStopFourPercentages = 	"Spade: "+formatter.format(per[8]*100)+"    Club: "+formatter.format(per[9]*100)+"    Heart: "+formatter.format(per[10]*100)+"    Diamond: "+formatter.format(per[11]*100);
 		
 		if 		(rtb.getStop() == STOP.RED_OR_BLACK)
 			lblResult.setText(formattedStopOnePercentages);
